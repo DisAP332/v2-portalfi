@@ -2,26 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+#app {
+  height: 100vh;
+  width: 100vw;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+:root {
+  --slate-2: rgb(226 232 240);
+  --slate-3: rgb(203 213 225);
+  --slate-6: rgb(71 85 105);
+  --slate-7: rgb(51 65 85);
+  --slate-8: rgb(30 41 59);
+}
+
+@layer header {
+  .header {
+    @apply bg-slate-800 text-purple-50 shadow-md shadow-slate-300 !important;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+  }
+  .header_start {
+    @apply flex justify-start p-1;
+    border-bottom: 1px solid var(--slate-3) !important;
+  }
+  .header_center {
+    @apply bg-slate-100 flex justify-between items-center pr-10 pl-5 !important;
+  }
+  .company-title-logo {
+    @apply mt-2 mb-2;
+    height: 80%;
+    width: 100px;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer images {
+}
+
+@layer sideNav {
+  .sideNavContainer {
+    @apply bg-slate-800 shadow-xl shadow-slate-700 pt-10 !important;
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+  }
+  @layer DD_Buttons {
+    .sidenav_toggleable {
+      @apply flex flex-col place-items-center text-white !important;
+    }
+    /* button */
+    .sidenav_toggleable > button {
+      display: flex;
+      height: 3.5rem;
+      width: 90%;
+      border: 2px solid var(--slate-7) !important;
+      border-radius: 20px;
+      padding: 12px !important;
+    }
+    .sidenav_toggleable > button:hover {
+      background: var(--slate-6) !important;
+    }
+    .sidenav_toggleable > button > div {
+      display: flex;
+      justify-content: center;
+    }
+    /* dropdown */
+    .toggleable_dropdown {
+      @apply flex flex-row;
+      width: 90%;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border: 2px solid rgb(62, 79, 103) !important;
+      border-top: 0px !important;
+    }
+    .toggleable_dropdown > button {
+      height: 3rem;
+      padding: 12px;
+      width: 100%;
+    }
+    .toggleable_dropdown > button:hover {
+      background: var(--slate-6) !important;
+    }
+    .toggleable_dropdown > button:last-child {
+      padding-bottom: 2rem;
+    }
+  }
+}
+
+@layer dashboard {
+  #dashboard {
+    height: 94%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+  }
 }
