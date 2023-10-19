@@ -20,13 +20,15 @@
     @apply bg-slate-800 text-purple-50 shadow-md shadow-slate-300 !important;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
+    width: 100vw;
   }
   .header_start {
     @apply flex justify-start p-1;
     border-bottom: 1px solid var(--slate-3) !important;
+    min-width: 200px !important;
   }
   .header_center {
-    @apply bg-slate-100 flex justify-between items-center pr-10 pl-5 !important;
+    @apply bg-slate-100 flex justify-between items-center pr-10 pl-5;
   }
   .company-title-logo {
     @apply mt-2 mb-2;
@@ -43,6 +45,7 @@
     @apply bg-slate-800 shadow-xl shadow-slate-700 pt-10 !important;
     display: grid;
     grid-template-rows: 5fr 1fr;
+    min-width: 200px !important;
   }
   @layer DD_Buttons {
     .sidenav_toggleable {
@@ -92,5 +95,81 @@
     height: 94%;
     display: grid;
     grid-template-columns: 1fr 5fr;
+  }
+}
+
+@layer HamToXBtn {
+  #HTXB {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    position: relative;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+  }
+
+  #HTXB span {
+    display: block;
+    position: absolute;
+    height: 9px;
+    width: 100%;
+    background: #e4e4e4;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  #HTXB span:nth-child(1) {
+    top: 0px;
+  }
+
+  #HTXB span:nth-child(2),
+  #HTXB span:nth-child(3) {
+    top: 18px;
+  }
+
+  #HTXB span:nth-child(4) {
+    top: 36px;
+  }
+
+  #HTXB.open span:nth-child(1) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+  }
+
+  #HTXB.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  #HTXB.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+  #HTXB.open span:nth-child(4) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
   }
 }

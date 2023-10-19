@@ -2,7 +2,7 @@ import SettingsDD, { ContentDD, ProfileDD } from "./SideNav/SideNavButtons";
 
 function SideNav() {
   return (
-    <div className="sideNavContainer">
+    <div className="sideNavContainer hidden md:grid">
       <div className="flex flex-col gap-y-3">
         <ProfileDD />
         <ContentDD />
