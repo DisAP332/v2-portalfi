@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Storage from "@/helpers/storage";
 
 import Image from "next/image";
 import CompanyHeader from "../assets/images/Name_Logo.png";
-import { useRouter } from "next/navigation";
 import TokenChecker from "@/helpers/tokenChecker";
 
 export default function Login() {
@@ -15,8 +14,6 @@ export default function Login() {
   const [loginInfo, setLoginInfo] = useState(initialState);
 
   const [loading, setLoading] = useState(false);
-
-  const navigate = useRouter();
 
   function checkFields() {
     if (loginInfo.password.length < 1 || loginInfo.password.length < 1) {
@@ -41,8 +38,7 @@ export default function Login() {
           Storage.setItems(res);
           // dump the login info from state
           setLoginInfo(initialState);
-          // move to the dashboard
-          navigate.push("/home");
+          // rerender triggered by state change, token checker will then redirect us to dash.
         }
       })
       .catch(() => {
