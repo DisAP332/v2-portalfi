@@ -73,10 +73,21 @@ function setItems(payload: AxiosResponse) {
   setItem("siteData", payload.data.response.publishedData);
 }
 
+function removeItem(action: string) {
+  if (typeof window !== "undefined" && window.localStorage) {
+    switch (action) {
+      case "token":
+        localStorage.removeItem("JBWtoken");
+        break;
+    }
+  }
+}
+
 const Storage = {
   getItem,
   setItem,
   setItems,
+  removeItem,
 };
 
 export default Storage;

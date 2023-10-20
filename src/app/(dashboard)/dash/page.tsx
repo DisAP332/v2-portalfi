@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <App />
-      <TokenChecker location="home" />
+      <TokenChecker location="dash" />
     </>
   );
 }
