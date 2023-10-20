@@ -73,6 +73,7 @@ function setItems(payload: AxiosResponse) {
   setItem("siteData", payload.data.response.publishedData);
 }
 
+// purposefully
 function removeItem(action: string) {
   if (typeof window !== "undefined" && window.localStorage) {
     switch (action) {
