@@ -32,6 +32,8 @@ export function DisplayUser() {
 export function LogoutButton() {
   const router = useRouter();
   function logout() {
+    // purposefully only deleting the token so when they log in no need to
+    // fetch more data.
     Storage.removeItem("token");
     router.push("/");
   }

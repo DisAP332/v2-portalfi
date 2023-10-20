@@ -18,11 +18,17 @@ export default function Login() {
 
   const navigate = useRouter();
 
-  const handleLogin = async () => {
+  function checkFields() {
     if (loginInfo.password.length < 1 || loginInfo.password.length < 1) {
       window.alert("Username and or Password field cannot be left blank");
-      return;
-    }
+      return false;
+    } else return true;
+  }
+
+  const handleLogin = async () => {
+    // make sure the fields arent empty
+    if (checkFields() === false) return;
+    // fields are valid so lets set the loading screen.
     setLoading(true);
     await axios
       .post("http://localhost:8080/user/login", {
@@ -30,7 +36,6 @@ export default function Login() {
         password: loginInfo.password,
       })
       .then((res) => {
-        console.log(res);
         if (res.data.success === true) {
           // save all data to local storage
           Storage.setItems(res);
@@ -41,8 +46,11 @@ export default function Login() {
         }
       })
       .catch(() => {
+        // dump all login fields
         setLoginInfo(initialState);
+        // send back to login screen
         setLoading(false);
+        // alert user of failed login attempt
         window.alert("incorrect username/password");
       });
   };
