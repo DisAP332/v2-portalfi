@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import SectionHeader from "./sections_parts/SectionHeader";
+import { DrinkHeader } from "./sections_parts/SectionHeader";
 import { RootState } from "@/redux/store";
 import { DrinksBody } from "./sections_parts/SectionBody";
 
@@ -13,7 +13,7 @@ function DrinksSection() {
         <h1 className="text-slate-500 text-3xl font-sembold mt-4">Drinks</h1>
       </div>
       <div className="shadow-md">
-        <SectionHeader location="drinks" />
+        <DrinkHeader />
         <DrinksBody />
       </div>
       <div className="flex justify-end pt-4">

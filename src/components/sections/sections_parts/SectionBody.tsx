@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import EventCard from "./cards/EventCard";
 import DrinkCard from "./cards/DrinkCard";
+import { useEffect, useState } from "react";
 
 interface IProps {
   location: string;
@@ -11,6 +12,10 @@ interface IProps {
 
 export function EventBody() {
   const events = useSelector((state: RootState) => state.contentData.events);
+  // const [data, setData] = useState(events);
+  // useEffect(() => {
+  //   setData(events);
+  // }, [events]);
   return (
     <div className="CardContainer">
       {events !== null && events ? (
