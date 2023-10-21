@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import SectionHeader from "./sections_parts/SectionHeader";
 import { RootState } from "@/redux/store";
+import { DrinksBody } from "./sections_parts/SectionBody";
 
 function DrinksSection() {
   const toggler = useSelector(
@@ -13,17 +14,7 @@ function DrinksSection() {
       </div>
       <div className="shadow-md">
         <SectionHeader location="drinks" />
-        <div className="CardContainer">
-          {/* {drinks !== null && drinks.length >= 1 ? (
-              drinks.map((items: { _id: string }) => (
-                <div className="CardBox" key={items._id}>
-                  <DrinksCard {...items} setDrinks={setDrinksData} />
-                </div>
-              ))
-            ) : (
-              <></>
-            )} */}
-        </div>
+        <DrinksBody />
       </div>
       <div className="flex justify-end pt-4">
         {/* <button

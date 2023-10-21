@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import SectionHeader from "./sections_parts/SectionHeader";
 import { RootState } from "@/redux/store";
+import { EventBody } from "./sections_parts/SectionBody";
 
 function EventsSection() {
   const toggler = useSelector(
@@ -13,17 +14,7 @@ function EventsSection() {
       </div>
       <div className="shadow-md">
         <SectionHeader location="events" />
-        <div className="CardContainer">
-          {/* {events !== null && events ? (
-              events.map((items: { _id: string }) => (
-                <div className="CardBox" key={items._id}>
-                  <EventsCard {...items} setEvents={setEventData} />
-                </div>
-              ))
-            ) : (
-              <></>
-            )} */}
-        </div>
+        <EventBody />
       </div>
       <div className="flex justify-end pt-4">
         {/* <button

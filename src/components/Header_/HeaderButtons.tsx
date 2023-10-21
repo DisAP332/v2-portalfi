@@ -3,6 +3,7 @@
 import crudActions from "@/helpers/crudActions";
 import Storage from "@/helpers/storage";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export function HeaderPublish() {
   function handlePublish() {
@@ -22,11 +23,15 @@ export function HeaderPublish() {
 }
 
 export function DisplayUser() {
-  return (
-    <h1 className="pl-4 sm:block md:hidden lg:block">
-      {Storage.getItem("user")}
-    </h1>
-  );
+  const [username, setUsername] = useState("");
+
+  // use effect is used so our server and client information for username
+  // matches up
+  useEffect(() => {
+    setUsername(Storage.getItem("user"));
+  }, []);
+
+  return <h1 className="pl-4 sm:block md:hidden lg:block">{username}</h1>;
 }
 
 export function LogoutButton() {

@@ -108,6 +108,48 @@
     .sectionHeader {
       @apply bg-slate-600 mt-3 rounded-t-xl p-2 text-white;
     }
+    @layer cards {
+      .CardContainer {
+        max-height: 60vh !important;
+        overflow: auto;
+        padding-bottom: 20px;
+      }
+      .CardBox:nth-child(odd) {
+        background-color: var(--slate-2);
+        border-right: 2px solid var(--slate-3) !important;
+      }
+      #card {
+        margin-top: 10px;
+      }
+      #card > div {
+        display: flex;
+        align-items: center;
+        border-right: 2px solid var(--slate-3) !important;
+        margin: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      #card > div:nth-child(1) {
+        margin-left: 14px;
+      }
+    }
+    @layer buttons {
+      .editBtn {
+        padding: 5px !important;
+        width: 60px;
+        border: 2px solid var(--slate-7) !important;
+        border-right: 2px solid rgb(230, 230, 236) !important;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 18px;
+      }
+
+      .deleteBtn {
+        padding: 5px !important;
+        width: 60px;
+        border: 2px solid var(--slate-7) !important;
+        border-left: none;
+      }
+    }
     @layer header_grids {
       .eventsGrid {
         display: grid;
