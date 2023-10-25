@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 
 function EventCard(Props: any) {
-  const [date, setDate] = useState("");
+  // we use state in order to make sure that the server and client are aligned
+  const [data, setData] = useState({
+    date: "",
+    time: "",
+    name: "",
+    cost: "",
+    description: "",
+    img: "",
+  });
 
   useEffect(() => {
     function sliceDate() {
@@ -12,23 +20,47 @@ function EventCard(Props: any) {
       }
       return "";
     }
-    setDate(sliceDate());
-  }, [Props.Date]);
+    setData({
+      date: sliceDate(),
+      time: Props.Time,
+      name: Props.Name,
+      cost: Props.Cost,
+      description: Props.Description,
+      img: Props.img,
+    });
+  }, [
+    Props.Time,
+    Props.Name,
+    Props.Cost,
+    Props.Description,
+    Props.img,
+    Props.Date,
+  ]);
 
   return (
     <div id="card" className="eventsGrid text-slate-700">
       <div className="grid grid-cols-2">
-        <h1>{date}</h1>
-        <h1 className="ml-4">{Props.Time ? Props.Time : null}</h1>
+        <h1>{data.date}</h1>
+        <h1 className="ml-4">{data.time}</h1>
       </div>
       <div>
-        <h1>{Props.Name ? Props.Name : null}</h1>
+        <h1>{data.name}</h1>
       </div>
       <div>
-        <h1>{Props.Cost ? Props.Cost + "$" : null}</h1>
+        <h1>{data.cost + "$"}</h1>
       </div>
       <div>
-        {Props.Description ? (
+        {data.description.length < 45 ? (
+          <h1>{data.description}</h1>
+        ) : (
+          <h1
+            className="cursor-pointer"
+            onClick={() => window.alert(data.description)}
+          >
+            {data.description.slice(0, 45) + "..."}
+          </h1>
+        )}
+        {/* {Props.Description ? (
           Props.Description.length < 45 ? (
             <h1>{Props.Description}</h1>
           ) : (
@@ -39,10 +71,11 @@ function EventCard(Props: any) {
               {Props.Description.slice(0, 45) + "..."}
             </h1>
           )
-        ) : null}
+        ) : null} */}
       </div>
       <div>
-        <h1>{Props.Img ? Props.Img : null}</h1>
+        {/* <h1>{Props.Img ? Props.Img : null}</h1> */}
+        <h1>{data.img}</h1>
       </div>
       <div className="text-slate-100 ml-4">
         <button

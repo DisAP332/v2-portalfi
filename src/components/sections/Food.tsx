@@ -1,11 +1,8 @@
-import { RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
 import { FoodHeader } from "./sections_parts/SectionHeader";
 
 function FoodSection() {
-  const toggler = useSelector((state: RootState) => state.sectionToggler.food);
   return (
-    <div style={toggler.hiderCSS} className="section">
+    <div className="section">
       <div className="flex justify-between">
         <h1 className="text-slate-500 text-3xl font-sembold mt-4">Food Menu</h1>
       </div>

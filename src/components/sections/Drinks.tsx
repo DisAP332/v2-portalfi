@@ -1,20 +1,18 @@
-import { useSelector } from "react-redux";
 import { DrinkHeader } from "./sections_parts/SectionHeader";
-import { RootState } from "@/redux/store";
 import { DrinksBody } from "./sections_parts/SectionBody";
+import CartProvider from "@/redux/CartProvider";
 
 function DrinksSection() {
-  const toggler = useSelector(
-    (state: RootState) => state.sectionToggler.drinks
-  );
   return (
-    <div style={toggler.hiderCSS} className="section">
+    <div className="section">
       <div className="flex justify-between">
         <h1 className="text-slate-500 text-3xl font-sembold mt-4">Drinks</h1>
       </div>
       <div className="shadow-md">
-        <DrinkHeader />
-        <DrinksBody />
+        <CartProvider>
+          <DrinkHeader />
+          <DrinksBody />
+        </CartProvider>
       </div>
       <div className="flex justify-end pt-4">
         {/* <button

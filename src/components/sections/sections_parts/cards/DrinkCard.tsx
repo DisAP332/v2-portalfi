@@ -1,17 +1,57 @@
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 function DrinkCard(Props: any) {
+  const [data, setData] = useState({
+    name: "",
+    cost: "",
+    category: "",
+    description: "",
+    ingredients: "",
+    isSpecial: "",
+  });
+
+  useEffect(() => {
+    setData({
+      name: Props.Name,
+      cost: Props.Cost,
+      category: Props.Category,
+      description: Props.Description,
+      ingredients: Props.Ingredients,
+      isSpecial: Props.IsSpecial,
+    });
+  }, [
+    Props.Name,
+    Props.Cost,
+    Props.Category,
+    Props.Description,
+    Props.Ingredients,
+    Props.IsSpecial,
+  ]);
+
   return (
     <div id="card" className="drinksGrid text-slate-700">
       <div>
-        <h1>{Props.Name}</h1>
+        <h1>{data.name}</h1>
       </div>
       <div>
-        <h1>{Props.Cost}$</h1>
+        <h1>{data.cost}$</h1>
       </div>
       <div>
-        <h1>{Props.Category}</h1>
+        <h1>{data.category}</h1>
       </div>
       <div>
-        {Props.Description ? (
+        {data.description.length < 30 ? (
+          <h1>data.description</h1>
+        ) : (
+          <h1
+            className="cursor-pointer"
+            onClick={() => window.alert(data.description)}
+          >
+            {data.description.slice(0, 30) + "..."}
+          </h1>
+        )}
+        {/* {Props.Description ? (
           Props.Description.length < 30 ? (
             <h1>{Props.Description}</h1>
           ) : (
@@ -24,10 +64,20 @@ function DrinkCard(Props: any) {
           )
         ) : (
           <></>
-        )}
+        )} */}
       </div>
       <div>
-        {Props.Ingredients ? (
+        {data.ingredients.length < 30 ? (
+          <h1>{data.description}</h1>
+        ) : (
+          <h1
+            className="cursor-pointer"
+            onClick={() => window.alert(data.ingredients)}
+          >
+            {data.ingredients.slice(0, 30) + "..."}
+          </h1>
+        )}
+        {/* {Props.Ingredients ? (
           Props.Ingredients.length < 30 ? (
             <h1>{Props.Ingredients}</h1>
           ) : (
@@ -40,10 +90,11 @@ function DrinkCard(Props: any) {
           )
         ) : (
           <></>
-        )}
+        )} */}
       </div>
       <div>
-        <h1>{Props.IsSpecial ? "true" : "false"}</h1>
+        {/* <h1>{Props.IsSpecial ? "true" : "false"}</h1> */}
+        <h1>{data.isSpecial}</h1>
       </div>
       <div className="text-slate-100 ml-4">
         <button
@@ -60,6 +111,7 @@ function DrinkCard(Props: any) {
         >
           delete
         </button>
+        <Link href={`/dash/drinks/${Props._id}`}>Link</Link>
       </div>
     </div>
   );

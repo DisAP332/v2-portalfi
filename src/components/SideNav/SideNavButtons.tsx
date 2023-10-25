@@ -10,7 +10,7 @@ import SettingsIcon from "../../assets/icons/settings.svg";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { showorHiderMenu } from "@/redux/slices/menuTogglerSlice";
-import { showorHiderSection } from "@/redux/slices/sectionTogglerSlice";
+import Link from "next/link";
 
 export function ContentDD() {
   const dispatch = useDispatch();
@@ -28,21 +28,15 @@ export function ContentDD() {
         Content
       </button>
       <div className="toggleable_dropdown" style={content.dropdowncss}>
-        <button onClick={() => dispatch(showorHiderSection("events"))}>
-          Events
-        </button>
-        <button onClick={() => dispatch(showorHiderSection("food"))}>
-          Food
-        </button>
-        <button onClick={() => dispatch(showorHiderSection("drinks"))}>
-          Drinks
-        </button>
-        <button
-          style={{ borderTop: "1px solid white" }}
-          onClick={() => dispatch(showorHiderSection("home_page_options"))}
-        >
+        <Link href={"/dash/events"}>Events</Link>
+
+        <Link href={"/dash/food"}>Food</Link>
+
+        <Link href={"/dash/drinks"}>Drinks</Link>
+
+        <Link style={{ borderTop: "1px solid white" }} href={"/dash"}>
           HomePage
-        </button>
+        </Link>
       </div>
     </div>
   );

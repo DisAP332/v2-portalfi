@@ -77,15 +77,17 @@
       border: 2px solid rgb(62, 79, 103) !important;
       border-top: 0px !important;
     }
-    .toggleable_dropdown > button {
+    .toggleable_dropdown > a {
+      display: block;
       height: 3rem;
       padding: 12px;
       width: 100%;
+      text-align: center;
     }
-    .toggleable_dropdown > button:hover {
+    .toggleable_dropdown > a:hover {
       background: var(--slate-6) !important;
     }
-    .toggleable_dropdown > button:last-child {
+    .toggleable_dropdown > a:last-child {
       padding-bottom: 2rem;
     }
   }

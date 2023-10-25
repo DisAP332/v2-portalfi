@@ -66,11 +66,17 @@ function setItem(requested: string, payload: object) {
 
 function setItems(payload: AxiosResponse) {
   setItem("user", payload.data.response.user);
-  setItem("token", payload.data.response.token);
   setItem("events", payload.data.response.events);
   setItem("food", payload.data.response.food);
   setItem("drinks", payload.data.response.drinks);
   setItem("siteData", payload.data.response.publishedData);
+
+  setItem("token", payload.data.response.token);
+  let now = new Date();
+  now.setTime(now.getTime() + 1 * 3600 * 1000);
+  document.cookie = `JBWtoken=${
+    payload.data.response.token
+  }; expires=${now.toUTCString()};`;
 }
 
 // purposefully

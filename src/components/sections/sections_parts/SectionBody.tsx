@@ -12,10 +12,7 @@ interface IProps {
 
 export function EventBody() {
   const events = useSelector((state: RootState) => state.contentData.events);
-  // const [data, setData] = useState(events);
-  // useEffect(() => {
-  //   setData(events);
-  // }, [events]);
+
   return (
     <div className="CardContainer">
       {events !== null && events ? (

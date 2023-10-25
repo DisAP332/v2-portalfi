@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import SideNav from "@/components/SideNav";
+import TokenChecker from "@/helpers/tokenChecker";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,8 +8,9 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Header />
       <div id="dashboard">
         <SideNav />
-        {children}
+        <div className="app_container">{children}</div>
       </div>
+      <TokenChecker location="dash" />
     </div>
   );
 }
