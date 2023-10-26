@@ -4,11 +4,7 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import EventCard from "./cards/EventCard";
 import DrinkCard from "./cards/DrinkCard";
-import { useEffect, useState } from "react";
-
-interface IProps {
-  location: string;
-}
+import FoodCard from "./cards/FoodCard";
 
 export function EventBody() {
   const events = useSelector((state: RootState) => state.contentData.events);
@@ -36,6 +32,23 @@ export function DrinksBody() {
         drinks.map((items: { _id: string }) => (
           <div className="CardBox" key={items._id}>
             <DrinkCard {...items} />
+          </div>
+        ))
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+}
+
+export function FoodBody() {
+  const food = useSelector((state: RootState) => state.contentData.food);
+  return (
+    <div className="CardContainer">
+      {food !== null && food.length !== 0 ? (
+        food.map((items: { _id: string }) => (
+          <div className="CardBox" key={items._id}>
+            <FoodCard {...items} />
           </div>
         ))
       ) : (

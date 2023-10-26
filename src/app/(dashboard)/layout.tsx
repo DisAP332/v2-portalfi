@@ -10,7 +10,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
         <SideNav />
         <div className="app_container">{children}</div>
       </div>
-      <TokenChecker location="dash" />
+      {/* <TokenChecker location="dash" token={false} /> */}
     </div>
   );
 }

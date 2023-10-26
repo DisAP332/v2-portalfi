@@ -1,4 +1,7 @@
+import CartProvider from "@/redux/CartProvider";
+import { FoodBody } from "./sections_parts/SectionBody";
 import { FoodHeader } from "./sections_parts/SectionHeader";
+import AddButton from "./sections_parts/SectionButtons";
 
 function FoodSection() {
   return (
@@ -7,18 +10,13 @@ function FoodSection() {
         <h1 className="text-slate-500 text-3xl font-sembold mt-4">Food Menu</h1>
       </div>
       <div className="shadow-md">
-        <FoodHeader />
-        {/* <div className="CardContainer">{foodCards}</div> */}
+        <CartProvider>
+          <FoodHeader />
+          <FoodBody />
+        </CartProvider>
       </div>
       <div className="flex justify-end pt-4">
-        {/* <button
-            className="bg-green-700 p-1 rounded-full"
-            onClick={() =>
-              setShowAddModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            <Image src={AddIcon} alt="Add Icon" width={60} />
-          </button> */}
+        <AddButton location="food" />
       </div>
     </div>
   );

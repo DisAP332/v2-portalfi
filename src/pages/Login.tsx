@@ -87,7 +87,7 @@ export default function Login() {
   const loginPage = (
     <div className="text-slate-800 bg-slate-800 flex justify-center items-center  w-screen h-screen flex-col">
       {loading ? loadScreen : login}
-      <TokenChecker location="login" />
+      <TokenChecker location="login" token={false} />
     </div>
   );
 

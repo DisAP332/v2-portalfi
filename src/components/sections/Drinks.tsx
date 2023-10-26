@@ -1,6 +1,7 @@
 import { DrinkHeader } from "./sections_parts/SectionHeader";
 import { DrinksBody } from "./sections_parts/SectionBody";
 import CartProvider from "@/redux/CartProvider";
+import AddButton from "./sections_parts/SectionButtons";
 
 function DrinksSection() {
   return (
@@ -15,14 +16,7 @@ function DrinksSection() {
         </CartProvider>
       </div>
       <div className="flex justify-end pt-4">
-        {/* <button
-            className="bg-green-700 p-1 rounded-full"
-            onClick={() =>
-              setShowAddModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            <Image src={AddIcon} alt="Add Icon" width={60} />
-          </button> */}
+        <AddButton location="drinks" />
       </div>
     </div>
   );

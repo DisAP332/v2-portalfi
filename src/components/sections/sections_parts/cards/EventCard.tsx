@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import crudActions from "@/helpers/crudActions";
+import { useDispatch } from "react-redux";
+import { dataActions } from "@/redux/slices/contentDataSlice";
+import EditEvent from "../../modals/edit/EditEvent";
 
 function EventCard(Props: any) {
   // we use state in order to make sure that the server and client are aligned
@@ -37,64 +41,97 @@ function EventCard(Props: any) {
     Props.Date,
   ]);
 
-  return (
-    <div id="card" className="eventsGrid text-slate-700">
-      <div className="grid grid-cols-2">
-        <h1>{data.date}</h1>
-        <h1 className="ml-4">{data.time}</h1>
-      </div>
-      <div>
-        <h1>{data.name}</h1>
-      </div>
-      <div>
-        <h1>{data.cost + "$"}</h1>
-      </div>
-      <div>
-        {data.description.length < 45 ? (
-          <h1>{data.description}</h1>
-        ) : (
-          <h1
-            className="cursor-pointer"
-            onClick={() => window.alert(data.description)}
-          >
-            {data.description.slice(0, 45) + "..."}
-          </h1>
-        )}
-        {/* {Props.Description ? (
-          Props.Description.length < 45 ? (
-            <h1>{Props.Description}</h1>
+  const dispatch = useDispatch();
+
+  function handleDelete() {
+    crudActions.Delete(Props._id, "events").then((res) => {
+      dispatch(
+        dataActions({
+          requested: "events",
+          data: res.data,
+        })
+      );
+    });
+  }
+
+  const [showEditModal, setShowEditModal] = useState({
+    show: false,
+    css: { display: "none" },
+  });
+
+  const [eventData, setEventData] = useState({
+    name: Props.Name,
+    date: Props.Date,
+    time: Props.Time,
+    description: Props.Description,
+    cost: Props.Cost,
+  });
+
+  const actions = {
+    setShow: setShowEditModal,
+    setEvents: Props.setEvents,
+    setEvent: setEventData,
+  };
+
+  const propsData = {
+    show: showEditModal,
+    event: eventData,
+    _id: Props._id,
+  };
+
+  const Card = Props.Description ? (
+    <>
+      <EditEvent actions={actions} data={propsData} />
+      <div id="card" className="eventsGrid text-slate-700">
+        <div className="grid grid-cols-2">
+          <h1>{data.date}</h1>
+          <h1 className="ml-4">{data.time}</h1>
+        </div>
+        <div>
+          <h1>{data.name}</h1>
+        </div>
+        <div>
+          <h1>{data.cost + "$"}</h1>
+        </div>
+        <div>
+          {data.description.length < 45 ? (
+            <h1>{data.description}</h1>
           ) : (
             <h1
               className="cursor-pointer"
-              onClick={() => window.alert(Props.Description)}
+              onClick={() => window.alert(data.description)}
             >
-              {Props.Description.slice(0, 45) + "..."}
+              {data.description.slice(0, 45) + "..."}
             </h1>
-          )
-        ) : null} */}
+          )}
+        </div>
+        <div>
+          {/* <h1>{Props.Img ? Props.Img : null}</h1> */}
+          <h1>{data.img}</h1>
+        </div>
+        <div className="text-slate-100 ml-4">
+          <button
+            className="editBtn bg-slate-400"
+            onClick={() =>
+              setShowEditModal({ show: true, css: { display: "flex" } })
+            }
+          >
+            Edit
+          </button>
+          <button
+            className="deleteBtn bg-red-600"
+            onClick={() => handleDelete()}
+          >
+            delete
+          </button>
+        </div>
       </div>
-      <div>
-        {/* <h1>{Props.Img ? Props.Img : null}</h1> */}
-        <h1>{data.img}</h1>
-      </div>
-      <div className="text-slate-100 ml-4">
-        <button
-          className="editBtn bg-slate-400"
-          // onClick={() =>
-          //   setShowEditModal({ show: true, css: { display: "flex" } })
-          // }
-        >
-          Edit
-        </button>
-        <button
-          className="deleteBtn bg-red-600"
-          // onClick={() => handleDelete()}
-        >
-          delete
-        </button>
-      </div>
-    </div>
+    </>
+  ) : (
+    <></>
   );
+
+  return Card;
 }
 
 export default EventCard;
