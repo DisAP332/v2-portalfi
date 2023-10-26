@@ -104,8 +104,11 @@
   }
   @layer sections {
     .section {
-      width: 100%;
+      width: 100% !important;
       height: 100%;
+    }
+    .smsection {
+      width: 60vw;
     }
     .sectionHeader {
       @apply bg-slate-600 mt-3 rounded-t-xl p-2 text-white;

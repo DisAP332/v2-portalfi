@@ -6,7 +6,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div id="app">
       <Header />
-      <div id="dashboard">
+      <div id="dashboard" className="hidden md:flex">
         <SideNav />
         <div className="app_container">{children}</div>
       </div>
