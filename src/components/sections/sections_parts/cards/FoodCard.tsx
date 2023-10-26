@@ -2,47 +2,47 @@ import crudActions from "@/helpers/crudActions";
 import { dataActions } from "@/redux/slices/contentDataSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import EditFood from "../../modals/edit/EditFood";
+import EditFood from "../../../modals/edit/EditFood";
 
 function FoodCard(Props: any) {
-  // function props() {
-  //   if (Props.length >= 1) {
-  //     return {
-  //       Name: Props.Name,
-  //       Description: Props.Description,
-  //       Cost: Props.Cost,
-  //       Sale: {
-  //         Is: Props.Sale.Is,
-  //         Percentage: Props.Sale.Percentage,
-  //       },
-  //       IsSpecial: Props.IsSpecial,
-  //       Tags: {
-  //         Spicy: Props.Tags.Spicy,
-  //         Raw: Props.Tags.Raw,
-  //         Allergens: Props.Tags.Allergens,
-  //       },
-  //       Type: Props.Type,
-  //       Ingredients: Props.Ingredients,
-  //     };
-  //   } else
-  //     return {
-  //       Name: "",
-  //       Description: "",
-  //       Cost: "",
-  //       Sale: {
-  //         Is: "",
-  //         Percentage: "",
-  //       },
-  //       IsSpecial: "",
-  //       Tags: {
-  //         Spicy: "",
-  //         Raw: "",
-  //         Allergens: "",
-  //       },
-  //       Type: "",
-  //       Ingredients: "",
-  //     };
-  // }
+  function props() {
+    if (Props.length >= 1) {
+      return {
+        Name: Props.Name,
+        Description: Props.Description,
+        Cost: Props.Cost,
+        Sale: {
+          Is: Props.Sale.Is,
+          Percentage: Props.Sale.Percentage,
+        },
+        IsSpecial: Props.IsSpecial,
+        Tags: {
+          Spicy: Props.Tags.Spicy,
+          Raw: Props.Tags.Raw,
+          Allergens: Props.Tags.Allergens,
+        },
+        Type: Props.Type,
+        Ingredients: Props.Ingredients,
+      };
+    } else
+      return {
+        Name: "",
+        Description: "",
+        Cost: "",
+        Sale: {
+          Is: "",
+          Percentage: "",
+        },
+        IsSpecial: "",
+        Tags: {
+          Spicy: "",
+          Raw: "",
+          Allergens: "",
+        },
+        Type: "",
+        Ingredients: "",
+      };
+  }
 
   const dispatch = useDispatch();
 

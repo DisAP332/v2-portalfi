@@ -4,10 +4,10 @@ import { useState } from "react";
 //icon
 import AddIcon from "@/assets/icons/add-new.svg";
 import Image from "next/image";
-import AddEvent from "../modals/add/AddEvent";
+import AddEvent from "../../modals/add/AddEvent";
 import CartProvider from "@/redux/CartProvider";
-import AddDrink from "../modals/add/AddDrink";
-import AddFood from "../modals/add/AddFood";
+import AddDrink from "../../modals/add/AddDrink";
+import AddFood from "../../modals/add/AddFood";
 
 function AddButton(Props: { location: string }) {
   let button = <></>;

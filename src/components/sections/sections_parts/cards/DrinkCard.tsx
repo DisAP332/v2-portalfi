@@ -3,7 +3,7 @@ import { dataActions } from "@/redux/slices/contentDataSlice";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import EditDrink from "../../modals/edit/EditDrink";
+import EditDrink from "../../../modals/edit/EditDrink";
 
 function DrinkCard(Props: any) {
   const [data, setData] = useState({

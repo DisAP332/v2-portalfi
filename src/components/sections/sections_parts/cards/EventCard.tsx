@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import crudActions from "@/helpers/crudActions";
 import { useDispatch } from "react-redux";
 import { dataActions } from "@/redux/slices/contentDataSlice";
-import EditEvent from "../../modals/edit/EditEvent";
+import EditEvent from "../../../modals/edit/EditEvent";
 
 function EventCard(Props: any) {
   // we use state in order to make sure that the server and client are aligned

@@ -36,6 +36,7 @@ export default function AddFood(Props: propsTypes) {
 
   function handleFoodItemSubmit() {
     crudActions.Create("food", foodData).then((res) => {
+      console.log(res);
       if (res.success === true) {
         dispatch(
           dataActions({
