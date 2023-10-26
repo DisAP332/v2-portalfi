@@ -58,20 +58,30 @@ async function Delete(id: string, requested: string) {
 
 async function Update(id: string, requested: string, data: object) {
   let formatedData = format(requested, data);
-  await axios
-    .put(
-      `${server}/${requested}/${id}`,
-      { Data: formatedData },
-      {
-        headers: {
-          authorization: Storage.getItem("token"),
-          user: Storage.getItem("user"),
-        },
-      }
-    )
-    .then((res) => {
-      handleResponse(res);
-    });
+  try {
+    await axios
+      .put(
+        `${server}/${requested}/${id}`,
+        { Data: formatedData },
+        {
+          headers: {
+            authorization: Storage.getItem("token"),
+            user: Storage.getItem("user"),
+          },
+        }
+      )
+      .then((res) => {
+        handleResponse(res);
+      });
+  } catch (error) {
+    window.alert(
+      `Make sure all required fields contain data / in correct format. ${error}`
+    );
+    result = {
+      success: false,
+      data: {},
+    };
+  }
   return result;
 }
 
