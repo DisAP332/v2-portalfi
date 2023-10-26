@@ -1,5 +1,7 @@
+"use client";
+
 import CartProvider from "@/redux/CartProvider";
-import SettingsDD, { ContentDD, ProfileDD } from "./SideNav/SideNavButtons";
+import SettingsDD, { ContentDD, ProfileDD } from "./SideNav/NavButtons";
 
 function SideNav() {
   return (

@@ -4,10 +4,9 @@ import CartProvider from "@/redux/CartProvider";
 import AddButton from "./sections_parts/SectionButtons";
 
 function EventsSection() {
-  // );
   return (
     <>
-      <div className="section">
+      <div className="hidden sm:block section">
         <div className="flex justify-between">
           <h1 className="text-slate-500 text-3xl font-sembold mt-4">Events</h1>
         </div>
@@ -30,6 +29,20 @@ function EventsSection() {
         <div className="flex justify-end pt-4">
           <AddButton location="events" />
         </div>
+      </div>
+      <div className="block sm:hidden section">
+        <div className="flex justify-center bg-slate-100  w-full h-20">
+          <h1 className="text-slate-500 bg-slate-100 text-3xl font-sembold mt-4">
+            Events
+          </h1>
+        </div>
+        <div className="sectionHeader smGrid">
+          <h1>Name</h1>
+          <h1>Actions</h1>
+        </div>
+        <CartProvider>
+          <EventBody />
+        </CartProvider>
       </div>
     </>
   );

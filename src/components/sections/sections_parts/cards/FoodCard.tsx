@@ -93,9 +93,26 @@ function FoodCard(Props: any) {
     _id: Props._id,
   };
 
+  const Buttons = (
+    <div className="text-slate-100 ml-4">
+      <button
+        className="editBtn bg-slate-400"
+        onClick={() =>
+          setShowEditModal({ show: true, css: { display: "flex" } })
+        }
+      >
+        Edit
+      </button>
+      <button className="deleteBtn bg-red-600" onClick={() => handleDelete()}>
+        delete
+      </button>
+    </div>
+  );
+
   // check to see if value exists
   const Card = Props.Description ? (
     <>
+      {/* begin desktop */}
       <EditFood actions={actions} data={data} />
       <div id="card" className="foodGrid text-slate-700 hidden lg:grid">
         <div>
@@ -150,24 +167,10 @@ function FoodCard(Props: any) {
           )}
         </div>
         <div className="flex justify-center">{Props.Type}</div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
-        </div>
+        {Buttons}
       </div>
-      <div className="mdGrid lg:hidden" id="card">
+      {/* begin tablet */}
+      <div className="hidden md:grid mdGrid lg:hidden" id="card">
         <div>
           <h1>
             {Props.Name.length < 15
@@ -187,22 +190,14 @@ function FoodCard(Props: any) {
             </h1>
           )}
         </div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
+        {Buttons}
+      </div>
+      {/* begin mobile */}
+      <div className="grid sm:hidden smGrid" id="card">
+        <div>
+          <h1>{Props.Name}</h1>
         </div>
+        {Buttons}
       </div>
     </>
   ) : (

@@ -72,8 +72,26 @@ function DrinkCard(Props: any) {
     });
   }
 
+  const Buttons = (
+    <div className="text-slate-100 ml-4">
+      <button
+        className="editBtn bg-slate-400"
+        onClick={() =>
+          setShowEditModal({ show: true, css: { display: "flex" } })
+        }
+      >
+        Edit
+      </button>
+      <button className="deleteBtn bg-red-600" onClick={() => handleDelete()}>
+        delete
+      </button>
+    </div>
+  );
+
   const Card = Props.Description ? (
     <>
+      {/* begin desktop */}
+
       <EditDrink actions={actions} data={propsData} />
       <div id="card" className="drinksGrid text-slate-700 hidden lg:grid">
         <div>
@@ -112,25 +130,11 @@ function DrinkCard(Props: any) {
         <div>
           <h1>{data.isSpecial}</h1>
         </div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
-          <Link href={`/dash/drinks/${Props._id}`}>Link</Link>
-        </div>
+        {Buttons}
       </div>
-      <div className="mdGrid lg:hidden" id="card">
+      {/* begin tablet */}
+
+      <div className="hidden md:grid mdGrid lg:hidden" id="card">
         <div>
           <h1>
             {data.name.length < 15 ? data.name : data.name.slice(0, 14) + "..."}
@@ -148,22 +152,15 @@ function DrinkCard(Props: any) {
             </h1>
           )}
         </div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
+        {Buttons}
+      </div>
+      {/* begin mobile */}
+
+      <div className="grid sm:hidden smGrid" id="card">
+        <div>
+          <h1>{Props.Name}</h1>
         </div>
+        {Buttons}
       </div>
     </>
   ) : (

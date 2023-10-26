@@ -79,8 +79,26 @@ function EventCard(Props: any) {
     _id: Props._id,
   };
 
+  const Buttons = (
+    <div className="text-slate-100 ml-4">
+      <button
+        className="editBtn bg-slate-400"
+        onClick={() =>
+          setShowEditModal({ show: true, css: { display: "flex" } })
+        }
+      >
+        Edit
+      </button>
+      <button className="deleteBtn bg-red-600" onClick={() => handleDelete()}>
+        delete
+      </button>
+    </div>
+  );
+
   const Card = Props.Description ? (
     <>
+      {/* begin desktop */}
+
       <EditEvent actions={actions} data={propsData} />
       <div id="card" className="eventsGrid text-slate-700 hidden lg:grid">
         <div className="grid grid-cols-2">
@@ -106,27 +124,13 @@ function EventCard(Props: any) {
           )}
         </div>
         <div>
-          {/* <h1>{Props.Img ? Props.Img : null}</h1> */}
           <h1>{data.img}</h1>
         </div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
-        </div>
+        {Buttons}
       </div>
-      <div className="mdGrid lg:hidden" id="card">
+      {/* begin tablet */}
+
+      <div className="hidden md:grid mdGrid lg:hidden" id="card">
         <div>
           <h1>
             {data.name.length < 15 ? data.name : data.name.slice(0, 14) + "..."}
@@ -144,22 +148,15 @@ function EventCard(Props: any) {
             </h1>
           )}
         </div>
-        <div className="text-slate-100 ml-4">
-          <button
-            className="editBtn bg-slate-400"
-            onClick={() =>
-              setShowEditModal({ show: true, css: { display: "flex" } })
-            }
-          >
-            Edit
-          </button>
-          <button
-            className="deleteBtn bg-red-600"
-            onClick={() => handleDelete()}
-          >
-            delete
-          </button>
+        {Buttons}
+      </div>
+      {/* begin mobile */}
+
+      <div className="grid sm:hidden smGrid" id="card">
+        <div>
+          <h1>{data.name}</h1>
         </div>
+        {Buttons}
       </div>
     </>
   ) : (

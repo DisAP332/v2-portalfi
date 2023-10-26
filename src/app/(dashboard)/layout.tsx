@@ -6,10 +6,11 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div id="app">
       <Header />
-      <div id="dashboard" className="hidden md:flex">
+      <div id="dashboard" className="hidden md:grid">
         <SideNav />
         <div className="app_container">{children}</div>
       </div>
+      <div className="block sm:hidden app_container">{children}</div>
       {/* <TokenChecker location="dash" token={false} /> */}
     </div>
   );

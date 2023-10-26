@@ -32,6 +32,12 @@ export interface MenuTogglerState {
       borderBottomRightRadius: number;
     };
   };
+  mobileDD: {
+    toggled: boolean;
+    dropdowncss: {
+      display: string;
+    };
+  };
 }
 
 const initialState: MenuTogglerState = {
@@ -63,6 +69,12 @@ const initialState: MenuTogglerState = {
     toggledcss: {
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
+    },
+  },
+  mobileDD: {
+    toggled: false,
+    dropdowncss: {
+      display: "none",
     },
   },
 };
@@ -122,6 +134,20 @@ export const menuTogglerSlice = createSlice({
         state = {
           ...state,
           content: notToggled,
+        };
+        return state;
+      }
+
+      if (!state.mobileDD.toggled && action.payload === "mobileDD") {
+        state = {
+          ...state,
+          mobileDD: toggled,
+        };
+        return state;
+      } else if (state.mobileDD.toggled && action.payload === "mobileDD") {
+        state = {
+          ...state,
+          mobileDD: notToggled,
         };
         return state;
       }
