@@ -43,6 +43,9 @@ function DrinksSection() {
         <CartProvider>
           <DrinksBody />
         </CartProvider>
+        <div className="flex justify-end pt-4">
+          <AddButton location="drinks" />
+        </div>
       </div>
     </>
   );

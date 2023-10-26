@@ -36,13 +36,16 @@ function EventsSection() {
             Events
           </h1>
         </div>
-        <div className="sectionHeader smGrid">
+        <div className="sectionHeader smGrid w-70">
           <h1>Name</h1>
           <h1>Actions</h1>
         </div>
         <CartProvider>
           <EventBody />
         </CartProvider>
+        <div className="flex justify-end pt-4">
+          <AddButton location="food" />
+        </div>
       </div>
     </>
   );

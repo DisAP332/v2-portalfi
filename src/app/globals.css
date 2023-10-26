@@ -110,7 +110,7 @@
     grid-template-columns: 1fr 5fr;
   }
   .app_container {
-    @apply m-6 bg-slate-100 shadow-md pr-10 pl-10 pb-10 rounded-md h-5/6 !important;
+    @apply m-6 bg-slate-100 shadow-md md:pr-10 md:pl-10 pb-10 rounded-md h-5/6 !important;
   }
   @layer sections {
     .section {
@@ -188,6 +188,17 @@
         margin: 10px;
       }
     }
+  }
+}
+
+@layer modals {
+  .modal_container {
+    @apply fixed top-0 inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center text-white;
+  }
+  .modal {
+    @apply shadow-md md:w-1/2 rounded-t-xl shadow-slate-600 !important;
+    max-height: 60vh;
+    width: 80vw;
   }
 }
 
