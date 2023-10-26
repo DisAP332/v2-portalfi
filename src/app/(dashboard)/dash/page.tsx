@@ -3,7 +3,7 @@ import TokenChecker from "@/helpers/tokenChecker";
 function Home() {
   return (
     <>
-      <TokenChecker location="dash" />
+      <TokenChecker location="dash" token={false} />
     </>
   );
 }

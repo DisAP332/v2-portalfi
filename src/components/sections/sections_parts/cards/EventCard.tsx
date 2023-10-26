@@ -82,7 +82,7 @@ function EventCard(Props: any) {
   const Card = Props.Description ? (
     <>
       <EditEvent actions={actions} data={propsData} />
-      <div id="card" className="eventsGrid text-slate-700">
+      <div id="card" className="eventsGrid text-slate-700 hidden lg:grid">
         <div className="grid grid-cols-2">
           <h1>{data.date}</h1>
           <h1 className="ml-4">{data.time}</h1>
@@ -108,6 +108,41 @@ function EventCard(Props: any) {
         <div>
           {/* <h1>{Props.Img ? Props.Img : null}</h1> */}
           <h1>{data.img}</h1>
+        </div>
+        <div className="text-slate-100 ml-4">
+          <button
+            className="editBtn bg-slate-400"
+            onClick={() =>
+              setShowEditModal({ show: true, css: { display: "flex" } })
+            }
+          >
+            Edit
+          </button>
+          <button
+            className="deleteBtn bg-red-600"
+            onClick={() => handleDelete()}
+          >
+            delete
+          </button>
+        </div>
+      </div>
+      <div className="mdGrid lg:hidden" id="card">
+        <div>
+          <h1>
+            {data.name.length < 15 ? data.name : data.name.slice(0, 14) + "..."}
+          </h1>
+        </div>
+        <div>
+          {data.description.length < 28 ? (
+            <h1>{data.description}</h1>
+          ) : (
+            <h1
+              className="cursor-pointer"
+              onClick={() => window.alert(data.description)}
+            >
+              {data.description.slice(0, 28) + "..."}
+            </h1>
+          )}
         </div>
         <div className="text-slate-100 ml-4">
           <button

@@ -31,7 +31,9 @@ export function DisplayUser() {
     setUsername(Storage.getItem("user"));
   }, []);
 
-  return <h1 className="pl-4 sm:block md:hidden lg:block">{username}</h1>;
+  return (
+    <h1 className="pl-4 sm:block md:hidden lg:hidden xl:block">{username}</h1>
+  );
 }
 
 export function LogoutButton() {

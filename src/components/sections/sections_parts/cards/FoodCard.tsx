@@ -5,53 +5,68 @@ import { useDispatch } from "react-redux";
 import EditFood from "../../modals/edit/EditFood";
 
 function FoodCard(Props: any) {
+  // function props() {
+  //   if (Props.length >= 1) {
+  //     return {
+  //       Name: Props.Name,
+  //       Description: Props.Description,
+  //       Cost: Props.Cost,
+  //       Sale: {
+  //         Is: Props.Sale.Is,
+  //         Percentage: Props.Sale.Percentage,
+  //       },
+  //       IsSpecial: Props.IsSpecial,
+  //       Tags: {
+  //         Spicy: Props.Tags.Spicy,
+  //         Raw: Props.Tags.Raw,
+  //         Allergens: Props.Tags.Allergens,
+  //       },
+  //       Type: Props.Type,
+  //       Ingredients: Props.Ingredients,
+  //     };
+  //   } else
+  //     return {
+  //       Name: "",
+  //       Description: "",
+  //       Cost: "",
+  //       Sale: {
+  //         Is: "",
+  //         Percentage: "",
+  //       },
+  //       IsSpecial: "",
+  //       Tags: {
+  //         Spicy: "",
+  //         Raw: "",
+  //         Allergens: "",
+  //       },
+  //       Type: "",
+  //       Ingredients: "",
+  //     };
+  // }
+
   const dispatch = useDispatch();
 
+  const [foodData, setFoodData] = useState({
+    Name: Props.Name,
+    Description: Props.Description,
+    Cost: Props.Cost,
+    Sale: {
+      Is: Props.Sale.Is,
+      Percentage: Props.Sale.Percentage,
+    },
+    IsSpecial: Props.IsSpecial,
+    Tags: {
+      Spicy: Props.Tags.Spicy,
+      Raw: Props.Tags.Raw,
+      Allergens: Props.Tags.Allergens,
+    },
+    Type: Props.Type,
+    Ingredients: Props.Ingredients,
+  });
   const [showEditModal, setShowEditModal] = useState({
     show: false,
     css: { display: "none" },
   });
-
-  function props() {
-    if (Props.length >= 1) {
-      return {
-        Name: Props.Name,
-        Description: Props.Description,
-        Cost: Props.Cost,
-        Sale: {
-          Is: Props.Sale.Is,
-          Percentage: Props.Sale.Percentage,
-        },
-        IsSpecial: Props.IsSpecial,
-        Tags: {
-          Spicy: Props.Tags.Spicy,
-          Raw: Props.Tags.Raw,
-          Allergens: Props.Tags.Allergens,
-        },
-        Type: Props.Type,
-        Ingredients: Props.Ingredients,
-      };
-    } else
-      return {
-        Name: "",
-        Description: "",
-        Cost: "",
-        Sale: {
-          Is: "",
-          Percentage: "",
-        },
-        IsSpecial: "",
-        Tags: {
-          Spicy: "",
-          Raw: "",
-          Allergens: "",
-        },
-        Type: "",
-        Ingredients: "",
-      };
-  }
-
-  const [foodData, setFoodData] = useState(props());
 
   function handleDelete() {
     crudActions.Delete(Props._id, "food").then((res) => {
@@ -63,6 +78,8 @@ function FoodCard(Props: any) {
       );
     });
   }
+
+  // Group props to pass down to edit modal
 
   const actions = {
     setShow: setShowEditModal,
@@ -76,12 +93,11 @@ function FoodCard(Props: any) {
     _id: Props._id,
   };
 
-  console.log(Props);
   // check to see if value exists
   const Card = Props.Description ? (
     <>
       <EditFood actions={actions} data={data} />
-      <div id="card" className="foodGrid text-slate-700">
+      <div id="card" className="foodGrid text-slate-700 hidden lg:grid">
         <div>
           <h1>{Props.Name}</h1>
         </div>
@@ -134,6 +150,43 @@ function FoodCard(Props: any) {
           )}
         </div>
         <div className="flex justify-center">{Props.Type}</div>
+        <div className="text-slate-100 ml-4">
+          <button
+            className="editBtn bg-slate-400"
+            onClick={() =>
+              setShowEditModal({ show: true, css: { display: "flex" } })
+            }
+          >
+            Edit
+          </button>
+          <button
+            className="deleteBtn bg-red-600"
+            onClick={() => handleDelete()}
+          >
+            delete
+          </button>
+        </div>
+      </div>
+      <div className="mdGrid lg:hidden" id="card">
+        <div>
+          <h1>
+            {Props.Name.length < 15
+              ? Props.Name
+              : Props.Name.slice(0, 14) + "..."}
+          </h1>
+        </div>
+        <div>
+          {Props.Description.length < 28 ? (
+            <h1>{Props.Description}</h1>
+          ) : (
+            <h1
+              className="cursor-pointer"
+              onClick={() => window.alert(Props.Description)}
+            >
+              {Props.Description.slice(0, 28) + "..."}
+            </h1>
+          )}
+        </div>
         <div className="text-slate-100 ml-4">
           <button
             className="editBtn bg-slate-400"

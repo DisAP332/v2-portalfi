@@ -9,9 +9,19 @@ function DrinksSection() {
       <div className="flex justify-between">
         <h1 className="text-slate-500 text-3xl font-sembold mt-4">Drinks</h1>
       </div>
-      <div className="shadow-md">
+      <div className="shadow-md hidden lg:block">
         <CartProvider>
           <DrinkHeader />
+          <DrinksBody />
+        </CartProvider>
+      </div>
+      <div className="shadow-md hidden md:block lg:hidden">
+        <div className="sectionHeader mdGrid">
+          <h1>Name</h1>
+          <h1>Description</h1>
+          <h1>Actions</h1>
+        </div>
+        <CartProvider>
           <DrinksBody />
         </CartProvider>
       </div>
