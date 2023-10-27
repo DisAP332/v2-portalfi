@@ -15,8 +15,6 @@
 # production
 /build
 .vscode
-_dynamic
-_static
 
 # misc
 .DS_Store
