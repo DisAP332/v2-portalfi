@@ -46,23 +46,7 @@ function FoodCard(Props: any) {
 
   const dispatch = useDispatch();
 
-  const [foodData, setFoodData] = useState({
-    Name: Props.Name,
-    Description: Props.Description,
-    Cost: Props.Cost,
-    Sale: {
-      Is: Props.Sale.Is,
-      Percentage: Props.Sale.Percentage,
-    },
-    IsSpecial: Props.IsSpecial,
-    Tags: {
-      Spicy: Props.Tags.Spicy,
-      Raw: Props.Tags.Raw,
-      Allergens: Props.Tags.Allergens,
-    },
-    Type: Props.Type,
-    Ingredients: Props.Ingredients,
-  });
+  const [foodData, setFoodData] = useState(props());
   const [showEditModal, setShowEditModal] = useState({
     show: false,
     css: { display: "none" },
