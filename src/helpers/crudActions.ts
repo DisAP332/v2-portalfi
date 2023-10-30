@@ -10,7 +10,7 @@ interface IResult {
 
 let result: IResult;
 
-const server = "http://localhost:8080";
+const server = "https://server.portalfi-jbw.com";
 
 // ************* response handling ************* //
 

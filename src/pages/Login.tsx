@@ -28,7 +28,7 @@ export default function Login() {
     // fields are valid so lets set the loading screen.
     setLoading(true);
     await axios
-      .post("http://localhost:8080/user/login", {
+      .post("https://server.portalfi-jbw.com/user/login", {
         username: loginInfo.username,
         password: loginInfo.password,
       })
