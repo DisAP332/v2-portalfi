@@ -4,10 +4,10 @@ import Login from "@/pages/Login";
 
 import { cookies } from "next/headers";
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 
 export default function Home() {
-  const cookieStore = cookies();
-  const token = cookieStore.has("JBWtoken");
+  // const cookieStore = cookies();
+  // const token = cookieStore.has("JBWtoken");
   return <TokenChecker location="first" token={false} />;
 }

@@ -2,10 +2,13 @@ import CartProvider from "@/redux/CartProvider";
 import { FoodBody } from "./sections_parts/SectionBody";
 import { FoodHeader } from "./sections_parts/SectionHeader";
 import AddButton from "./sections_parts/SectionButtons";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function FoodSection() {
+  const toggler = useSelector((state: RootState) => state.sectionToggler.food);
   return (
-    <>
+    <div style={toggler.hiderCSS}>
       <div className="hidden sm:block section">
         <div className="flex justify-between">
           <h1 className="text-slate-500 text-3xl font-sembold mt-4">
@@ -49,7 +52,7 @@ function FoodSection() {
           <AddButton location="food" />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

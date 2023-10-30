@@ -2,10 +2,15 @@ import { DrinkHeader } from "./sections_parts/SectionHeader";
 import { DrinksBody } from "./sections_parts/SectionBody";
 import CartProvider from "@/redux/CartProvider";
 import AddButton from "./sections_parts/SectionButtons";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function DrinksSection() {
+  const toggler = useSelector(
+    (state: RootState) => state.sectionToggler.drinks
+  );
   return (
-    <>
+    <div style={toggler.hiderCSS}>
       <div className="hidden sm:block section">
         <div className="flex justify-between">
           <h1 className="text-slate-500 text-3xl font-sembold mt-4">Drinks</h1>
@@ -47,7 +52,7 @@ function DrinksSection() {
           <AddButton location="drinks" />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

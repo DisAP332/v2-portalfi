@@ -2,10 +2,15 @@ import { EventHeader } from "./sections_parts/SectionHeader";
 import { EventBody } from "./sections_parts/SectionBody";
 import CartProvider from "@/redux/CartProvider";
 import AddButton from "./sections_parts/SectionButtons";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
 function EventsSection() {
+  const toggler = useSelector(
+    (state: RootState) => state.sectionToggler.events
+  );
   return (
-    <>
+    <div style={toggler.hiderCSS}>
       <div className="hidden sm:block section">
         <div className="flex justify-between">
           <h1 className="text-slate-500 text-3xl font-sembold mt-4">Events</h1>
@@ -47,7 +52,7 @@ function EventsSection() {
           <AddButton location="food" />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

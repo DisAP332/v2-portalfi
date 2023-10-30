@@ -1,6 +1,6 @@
 1:HL["/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:HL["/_next/static/css/226b1dc818c0f155.css","style",{"crossOrigin":""}]
-0:["74IVRT-K6fduGevigzpSN",[[["",{"children":["(auth)",{"children":["login",{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],"$L3",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/226b1dc818c0f155.css","precedence":"next","crossOrigin":""}]],"$L4"]]]]
+0:["my-build-id",[[["",{"children":["(auth)",{"children":["login",{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],"$L3",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/226b1dc818c0f155.css","precedence":"next","crossOrigin":""}]],"$L4"]]]]
 5:I[6954,[],""]
 6:I[7264,[],""]
 8:I[9398,["282","static/chunks/282-76d28360401edcd5.js","665","static/chunks/app/(auth)/login/page-39f7b74db318fdff.js"],""]
