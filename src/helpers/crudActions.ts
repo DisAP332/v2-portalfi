@@ -10,7 +10,7 @@ interface IResult {
 
 let result: IResult;
 
-const server = "https://server.portalfi-jbw.com";
+const server = "https://server.perodactylesarefire.com";
 
 // ************* response handling ************* //
 
