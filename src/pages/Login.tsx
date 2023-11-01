@@ -54,7 +54,7 @@ export default function Login() {
   const login = (
     <>
       <Image src={CompanyHeader} alt="Company Header" width={500} />
-      <div className="w-1/3 rounded-t-3xl">
+      <div className="w-100 lg:w-1/3 rounded-t-3xl">
         <div className="bg-slate-600 text-slate-100 rounded-t-3xl">
           <h1 className="text-4xl p-4 text-center">Login</h1>
         </div>

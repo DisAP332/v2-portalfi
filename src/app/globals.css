@@ -193,7 +193,7 @@
 
 @layer modals {
   .modal_container {
-    @apply fixed top-0 inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center text-white;
+    @apply fixed top-0 inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center mt-3 lg:items-center text-white;
   }
   .modal {
     @apply shadow-md md:w-1/2 rounded-t-xl shadow-slate-600 !important;

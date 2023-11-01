@@ -42,7 +42,7 @@ export function ContentDD() {
         </button>
 
         <button
-          onClick={() => dispatch(showorHiderSection("home_page_options"))}
+        // onClick={() => dispatch(showorHiderSection("home_page_options"))}
         >
           {" "}
           HomePage

@@ -51,13 +51,8 @@ export default function EditDrink(Props: propsTypes) {
     });
   };
   return (
-    <div
-      className="fixed top-0 inset-0 bg-black
-      bg-opacity-30
-      backdrop-blur-sm flex justify-center items-center text-white"
-      style={Props.data.show.css}
-    >
-      <div className="modal w-1/2 shadow-md rounded-t-xl shadow-slate-600">
+    <div className="modal_container" style={Props.data.show.css}>
+      <div className="modal">
         <div className="bg-slate-700 text-center text-3xl pt-2 pb-2 rounded-t-xl grid grid-cols-3">
           <div />
           <div>Edit Drink</div>
