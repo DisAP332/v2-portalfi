@@ -16,8 +16,8 @@ function getItem(requested: string) {
         result = localStorage.getItem("JBWevents");
         if (result !== "undefined") {
           result = JSON.parse(result);
-          return result;
         }
+        return result;
       case "food":
         result = localStorage.getItem("JBWfoodItems");
         if (result !== "undefined") {

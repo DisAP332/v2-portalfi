@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Storage from "./storage";
 import format from "./crudFormater";
-import { SortedArray } from "typescript";
 
 interface IResult {
   success: boolean;
@@ -21,6 +20,7 @@ function handleResponse(res: AxiosResponse) {
       ...result,
       success: false,
     };
+    return;
   }
   if (res.data.success === false) {
     window.alert(res.data.response);

@@ -16,7 +16,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   function checkFields() {
-    if (loginInfo.password.length < 1 || loginInfo.password.length < 1) {
+    if (loginInfo.username.length < 1 || loginInfo.password.length < 1) {
       window.alert("Username and or Password field cannot be left blank");
       return false;
     } else return true;
