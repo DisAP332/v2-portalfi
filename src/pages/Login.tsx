@@ -28,7 +28,7 @@ export default function Login() {
     // fields are valid so lets set the loading screen.
     setLoading(true);
     await axios
-      .post("https://server.perodactylesarefire.com/user/login", {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
         username: loginInfo.username,
         password: loginInfo.password,
       })

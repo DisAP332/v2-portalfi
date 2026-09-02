@@ -9,7 +9,7 @@ interface IResult {
 
 let result: IResult;
 
-const server = "https://server.perodactylesarefire.com";
+const server = process.env.NEXT_PUBLIC_API_URL;
 
 // ************* response handling ************* //
 
