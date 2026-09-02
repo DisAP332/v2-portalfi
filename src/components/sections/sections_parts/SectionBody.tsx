@@ -12,7 +12,7 @@ export function EventBody() {
   return (
     <div className="CardContainer">
       {events !== null && events ? (
-        events.map((items: { _id: string }) => (
+        events.map((items: any) => (
           <div className="CardBox" key={items._id}>
             <EventCard {...items} />
           </div>
@@ -29,7 +29,7 @@ export function DrinksBody() {
   return (
     <div className="CardContainer">
       {drinks !== null && drinks ? (
-        drinks.map((items: { _id: string }) => (
+        drinks.map((items: any) => (
           <div className="CardBox" key={items._id}>
             <DrinkCard {...items} />
           </div>
@@ -46,7 +46,7 @@ export function FoodBody() {
   return (
     <div className="CardContainer">
       {food !== null && food.length !== 0 ? (
-        food.map((items: { _id: string }) => (
+        food.map((items: any) => (
           <div className="CardBox" key={items._id}>
             <FoodCard {...items} />
           </div>

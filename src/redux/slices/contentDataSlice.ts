@@ -8,12 +8,6 @@ interface IPayloadAction {
   data: object;
 }
 
-interface initialState {
-  events: Array<Object>;
-  food: Array<Object>;
-  drinks: Array<Object>;
-}
-
 interface IResults {
   success: boolean;
   response: string | object;
@@ -21,10 +15,15 @@ interface IResults {
 
 let results: IResults;
 
-const initialState = {
-  events: Storage.getItem("events") || [{}],
-  drinks: Storage.getItem("drinks") || [{}],
-  food: Storage.getItem("food") || [{}],
+// fixed and identical on server and client - reading localStorage here
+// instead (only available client-side) made the server's first render
+// disagree with the client's, which is a React hydration error. The
+// real localStorage values get dispatched in after mount instead, see
+// CartProvider.tsx.
+const initialState: { events: object[]; drinks: object[]; food: object[] } = {
+  events: [],
+  drinks: [],
+  food: [],
 };
 
 export const contentDataSlice = createSlice({
@@ -35,17 +34,17 @@ export const contentDataSlice = createSlice({
       switch (action.payload.requested) {
         case "food":
           Storage.setItem(action.payload.requested, action.payload.data);
-          state = { ...state, food: action.payload.data };
+          state = { ...state, food: action.payload.data as object[] };
           return state;
         // *************************************
         case "events":
           Storage.setItem(action.payload.requested, action.payload.data);
-          state = { ...state, events: action.payload.data };
+          state = { ...state, events: action.payload.data as object[] };
           return state;
         // *********************************************
         case "drinks":
           Storage.setItem(action.payload.requested, action.payload.data);
-          state = { ...state, drinks: action.payload.data };
+          state = { ...state, drinks: action.payload.data as object[] };
           return state;
       }
     },
