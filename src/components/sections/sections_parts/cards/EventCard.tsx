@@ -45,6 +45,7 @@ function EventCard(Props: any) {
 
   function handleDelete() {
     crudActions.Delete(Props._id, "events").then((res) => {
+      if (!res) return;
       dispatch(
         dataActions({
           requested: "events",

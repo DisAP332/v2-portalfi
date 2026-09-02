@@ -7,38 +7,29 @@ interface IResult {
   data: object;
 }
 
-let result: IResult;
-
 const server = process.env.NEXT_PUBLIC_API_URL;
 
 // ************* response handling ************* //
 
-function handleResponse(res: AxiosResponse) {
+function handleResponse(res: AxiosResponse): IResult {
   if (res.data.auth === false) {
     window.alert("token has expired. please log back in");
-    result = {
-      ...result,
-      success: false,
-    };
-    return;
+    return { success: false, data: {} };
   }
   if (res.data.success === false) {
     window.alert(res.data.response);
-    result = {
-      ...result,
-      success: false,
-    };
-  } else {
-    result = {
-      data: res.data.response.data,
-      success: true,
-    };
+    return { success: false, data: {} };
   }
+  return {
+    data: res.data.response.data,
+    success: true,
+  };
 }
 
 // *************** crud functions *************** //
 
 async function Delete(id: string, requested: string) {
+  let result: IResult | undefined;
   try {
     await axios
       .delete(`${server}/${requested}/${id}`, {
@@ -48,7 +39,7 @@ async function Delete(id: string, requested: string) {
         },
       })
       .then((res) => {
-        handleResponse(res);
+        result = handleResponse(res);
       });
   } catch (error) {
     console.log(error);
@@ -57,6 +48,7 @@ async function Delete(id: string, requested: string) {
 }
 
 async function Update(id: string, requested: string, data: object) {
+  let result: IResult = { success: false, data: {} };
   let formatedData = format(requested, data);
   try {
     await axios
@@ -71,7 +63,7 @@ async function Update(id: string, requested: string, data: object) {
         }
       )
       .then((res) => {
-        handleResponse(res);
+        result = handleResponse(res);
       });
   } catch (error) {
     window.alert(
@@ -86,6 +78,7 @@ async function Update(id: string, requested: string, data: object) {
 }
 
 async function Create(requested: string, data: object) {
+  let result: IResult = { success: false, data: {} };
   try {
     let formatedData = format(requested, data);
     await axios
@@ -100,7 +93,7 @@ async function Create(requested: string, data: object) {
         }
       )
       .then((res) => {
-        handleResponse(res);
+        result = handleResponse(res);
       });
   } catch (error) {
     window.alert(

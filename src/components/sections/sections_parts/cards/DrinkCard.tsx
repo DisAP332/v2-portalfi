@@ -63,6 +63,7 @@ function DrinkCard(Props: any) {
 
   function handleDelete() {
     crudActions.Delete(Props._id, "drinks").then((res) => {
+      if (!res) return;
       dispatch(
         dataActions({
           requested: "drinks",
