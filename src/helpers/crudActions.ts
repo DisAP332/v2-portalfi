@@ -107,10 +107,6 @@ async function Create(requested: string, data: object) {
   return result;
 }
 
-async function publish(requested: string, data: object) {
-  let formatedData = format(requested, data);
-}
-
 // ****** publish data sorting ******* //
 
 function sortEventsByDate(events: [{ Date: string }]) {
