@@ -1,6 +1,5 @@
 import { DrinkHeader } from "./sections_parts/SectionHeader";
 import { DrinksBody } from "./sections_parts/SectionBody";
-import CartProvider from "@/redux/CartProvider";
 import AddButton from "./sections_parts/SectionButtons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -13,13 +12,13 @@ function DrinksSection() {
     <div style={toggler.hiderCSS}>
       <div className="hidden sm:block section">
         <div className="flex justify-between">
-          <h1 className="text-slate-500 text-3xl font-sembold mt-4">Drinks</h1>
+          <h1 className="text-slate-500 text-3xl font-semibold mt-4">
+            Drinks
+          </h1>
         </div>
         <div className="shadow-md hidden lg:block">
-          <CartProvider>
-            <DrinkHeader />
-            <DrinksBody />
-          </CartProvider>
+          <DrinkHeader />
+          <DrinksBody />
         </div>
         <div className="shadow-md hidden md:block lg:hidden">
           <div className="sectionHeader mdGrid">
@@ -27,9 +26,7 @@ function DrinksSection() {
             <h1>Description</h1>
             <h1>Actions</h1>
           </div>
-          <CartProvider>
-            <DrinksBody />
-          </CartProvider>
+          <DrinksBody />
         </div>
         <div className="flex justify-end pt-4">
           <AddButton location="drinks" />
@@ -37,7 +34,7 @@ function DrinksSection() {
       </div>
       <div className="block sm:hidden section">
         <div className="flex justify-center bg-slate-100  w-full h-20">
-          <h1 className="text-slate-500 bg-slate-100 text-3xl font-sembold mt-4">
+          <h1 className="text-slate-500 bg-slate-100 text-3xl font-semibold mt-4">
             Drinks
           </h1>
         </div>
@@ -45,9 +42,7 @@ function DrinksSection() {
           <h1>Name</h1>
           <h1>Actions</h1>
         </div>
-        <CartProvider>
-          <DrinksBody />
-        </CartProvider>
+        <DrinksBody />
         <div className="flex justify-end pt-4">
           <AddButton location="drinks" />
         </div>

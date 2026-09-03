@@ -14,7 +14,6 @@ import {
 } from "./Header_/HeaderButtons";
 import { HamToXBtn } from "./Header_/HamIcon";
 import MobileNavDD from "./MobileNavDD";
-import CartProvider from "@/redux/CartProvider";
 
 function Header() {
   return (
@@ -41,14 +40,10 @@ function Header() {
         <div className="md:hidden mr-3" />
         {/* hamburger icon that only shows in mobile */}
         <div className="flex md:hidden">
-          <CartProvider>
-            <HamToXBtn />
-          </CartProvider>
+          <HamToXBtn />
         </div>
       </div>
-      <CartProvider>
-        <MobileNavDD />
-      </CartProvider>
+      <MobileNavDD />
     </>
   );
 }

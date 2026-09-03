@@ -5,7 +5,6 @@ import { useState } from "react";
 import AddIcon from "@/assets/icons/add-new.svg";
 import Image from "next/image";
 import AddEvent from "../../modals/add/AddEvent";
-import CartProvider from "@/redux/CartProvider";
 import AddDrink from "../../modals/add/AddDrink";
 import AddFood from "../../modals/add/AddFood";
 
@@ -29,9 +28,7 @@ function AddButton(Props: { location: string }) {
           >
             <Image src={AddIcon} alt="Add Icon" width={60} />
           </button>
-          <CartProvider>
-            <AddEvent show={showAddModal} setShow={setShowAddModal} />
-          </CartProvider>
+          <AddEvent show={showAddModal} setShow={setShowAddModal} />
         </>
       );
       break;
@@ -46,9 +43,7 @@ function AddButton(Props: { location: string }) {
           >
             <Image src={AddIcon} alt="Add Icon" width={60} />
           </button>
-          <CartProvider>
-            <AddDrink show={showAddModal} setShow={setShowAddModal} />
-          </CartProvider>
+          <AddDrink show={showAddModal} setShow={setShowAddModal} />
         </>
       );
       break;
@@ -63,9 +58,7 @@ function AddButton(Props: { location: string }) {
           >
             <Image src={AddIcon} alt="Add Icon" width={60} />
           </button>
-          <CartProvider>
-            <AddFood show={showAddModal} setShow={setShowAddModal} />
-          </CartProvider>
+          <AddFood show={showAddModal} setShow={setShowAddModal} />
         </>
       );
       break;
