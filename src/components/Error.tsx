@@ -1,6 +1,8 @@
-import { Rubik } from "next/font/google";
+import localFont from "next/font/local";
 
-const rubik = Rubik({ subsets: ["latin"] });
+// self-hosted (was next/font/google's Rubik) - fetching from Google at
+// build time meant the build couldn't complete without reaching it.
+const rubik = localFont({ src: "../assets/fonts/Rubik-Variable.woff2" });
 
 function Error() {
   return (
