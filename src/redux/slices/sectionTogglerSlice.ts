@@ -1,110 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { contentTypes } from "@/content-types";
 
-export interface SectionTogglerState {
-  events: {
-    display: boolean;
-    hiderCSS: {
-      display: string;
-    };
-  };
-  food: {
-    display: boolean;
-    hiderCSS: {
-      display: string;
-    };
-  };
-  drinks: {
-    display: boolean;
-    hiderCSS: {
-      display: string;
-    };
-  };
-  home_page_options: {
-    display: boolean;
-    hiderCSS: {
-      display: string;
-    };
-  };
+interface SectionState {
+  display: boolean;
+  hiderCSS: { display: string };
 }
 
-const initialState: SectionTogglerState = {
-  events: {
-    display: false,
-    hiderCSS: {
-      display: "none",
-    },
-  },
-  food: {
-    display: false,
-    hiderCSS: {
-      display: "none",
-    },
-  },
-  drinks: {
-    display: false,
-    hiderCSS: {
-      display: "none",
-    },
-  },
-  home_page_options: {
-    display: false,
-    hiderCSS: {
-      display: "none",
-    },
-  },
-};
+export type SectionTogglerState = Record<string, SectionState>;
+
+const hidden: SectionState = { display: false, hiderCSS: { display: "none" } };
+const shown: SectionState = { display: true, hiderCSS: { display: "block" } };
+
+// home_page_options isn't a content type (no CRUD, no schema) but is still
+// one of the toggleable sections, so it's added alongside the content
+// type keys rather than living in contentTypes itself.
+const sectionKeys = [...contentTypes.map((type) => type.key), "home_page_options"];
+
+const initialState: SectionTogglerState = Object.fromEntries(
+  sectionKeys.map((key) => [key, hidden])
+);
 
 export const sectionTogglerSlice = createSlice({
   name: "sectionToggler",
   initialState,
   reducers: {
+    // shows exactly the requested section, hides every other one - a new
+    // content type's key works here with no change, since it's driven by
+    // whatever keys are already in state.
     showorHiderSection: (state, action: PayloadAction<string>) => {
-      switch (action.payload) {
-        case "events":
-          state = {
-            ...initialState,
-            events: {
-              display: true,
-              hiderCSS: {
-                display: "block",
-              },
-            },
-          };
-          return state;
-        case "food":
-          state = {
-            ...initialState,
-            food: {
-              display: true,
-              hiderCSS: {
-                display: "block",
-              },
-            },
-          };
-          return state;
-        case "drinks":
-          state = {
-            ...initialState,
-            drinks: {
-              display: true,
-              hiderCSS: {
-                display: "block",
-              },
-            },
-          };
-          return state;
-        case "home_page_options":
-          state = {
-            ...initialState,
-            home_page_options: {
-              display: true,
-              hiderCSS: {
-                display: "block",
-              },
-            },
-          };
-          return state;
+      for (const key of Object.keys(state)) {
+        state[key] = key === action.payload ? shown : hidden;
       }
     },
   },

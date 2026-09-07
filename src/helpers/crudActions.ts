@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import Storage from "./storage";
-import format from "./crudFormater";
 
 interface IResult {
   success: boolean;
@@ -49,12 +48,11 @@ async function Delete(id: string, requested: string) {
 
 async function Update(id: string, requested: string, data: object) {
   let result: IResult = { success: false, data: {} };
-  let formatedData = format(requested, data);
   try {
     await axios
       .put(
         `${server}/${requested}/${id}`,
-        { Data: formatedData },
+        { Data: data },
         {
           headers: {
             authorization: Storage.getItem("token"),
@@ -80,11 +78,10 @@ async function Update(id: string, requested: string, data: object) {
 async function Create(requested: string, data: object) {
   let result: IResult = { success: false, data: {} };
   try {
-    let formatedData = format(requested, data);
     await axios
       .post(
         `${server}/${requested}`,
-        { Data: formatedData },
+        { Data: data },
         {
           headers: {
             authorization: Storage.getItem("token"),

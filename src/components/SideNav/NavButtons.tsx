@@ -11,6 +11,7 @@ import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { showorHiderMenu } from "@/redux/slices/menuTogglerSlice";
 import { showorHiderSection } from "@/redux/slices/sectionTogglerSlice";
+import { contentTypes } from "@/content-types";
 import Link from "next/link";
 
 export function ContentDD() {
@@ -29,17 +30,14 @@ export function ContentDD() {
         Content
       </button>
       <div className="toggleable_dropdown" style={content.dropdowncss}>
-        <button onClick={() => dispatch(showorHiderSection("events"))}>
-          Events
-        </button>
-
-        <button onClick={() => dispatch(showorHiderSection("food"))}>
-          Food
-        </button>
-
-        <button onClick={() => dispatch(showorHiderSection("drinks"))}>
-          Drinks
-        </button>
+        {contentTypes.map((config) => (
+          <button
+            key={config.key}
+            onClick={() => dispatch(showorHiderSection(config.key))}
+          >
+            {config.navLabel}
+          </button>
+        ))}
 
         <button
         // onClick={() => dispatch(showorHiderSection("home_page_options"))}
