@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import Storage from "@/helpers/storage";
 import { dataActions } from "@/redux/slices/contentDataSlice";
 
 import Image from "next/image";
 import CompanyHeader from "../assets/images/Name_Logo.png";
-import TokenChecker from "@/helpers/tokenChecker";
 
 export default function Login() {
   const initialState = { username: "", password: "" };
@@ -18,6 +18,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   function checkFields() {
     if (loginInfo.username.length < 1 || loginInfo.password.length < 1) {
@@ -32,25 +33,29 @@ export default function Login() {
     // fields are valid so lets set the loading screen.
     setLoading(true);
     await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
-        username: loginInfo.username,
-        password: loginInfo.password,
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
+        {
+          username: loginInfo.username,
+          password: loginInfo.password,
+        },
+        // the login response Set-Cookie is cross-origin (different port);
+        // withCredentials is what tells the browser to actually store it.
+        { withCredentials: true }
+      )
       .then((res) => {
         if (res.data.success === true) {
-          // save all data to local storage
+          // the token itself is an HttpOnly cookie now, set by the server -
+          // there's nothing to store for it here. Everything else still
+          // goes to localStorage for the usual client-side caching.
           Storage.setItems(res);
-          // also push it into Redux directly - CartProvider's hydration
-          // effect only runs once, at the very first mount of the app for
-          // this browser session, so it can't pick up a login that happens
-          // afterward in the same session.
           const { events, food, drinks } = res.data.response;
           dispatch(dataActions({ requested: "events", data: events }));
           dispatch(dataActions({ requested: "food", data: food }));
           dispatch(dataActions({ requested: "drinks", data: drinks }));
           // dump the login info from state
           setLoginInfo(initialState);
-          // rerender triggered by state change, token checker will then redirect us to dash.
+          router.push("/dash");
         }
       })
       .catch(() => {
@@ -99,7 +104,6 @@ export default function Login() {
   const loginPage = (
     <div className="text-slate-800 bg-slate-800 flex justify-center items-center  w-screen h-screen flex-col">
       {loading ? loadScreen : login}
-      <TokenChecker location="login" token={false} />
     </div>
   );
 

@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import crudActions from "@/helpers/crudActions";
 import Storage from "@/helpers/storage";
 import { useRouter } from "next/navigation";
@@ -38,11 +39,15 @@ export function DisplayUser() {
 
 export function LogoutButton() {
   const router = useRouter();
-  function logout() {
-    // purposefully only deleting the token so when they log in no need to
-    // fetch more data.
-    Storage.removeItem("token");
-    router.push("/");
+  async function logout() {
+    // the token is an HttpOnly cookie now - JS can't clear it directly,
+    // so this has to actually ask the server to.
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/logout`,
+      {},
+      { withCredentials: true }
+    );
+    router.push("/login");
   }
 
   return (

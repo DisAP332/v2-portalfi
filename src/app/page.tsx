@@ -1,11 +1,8 @@
-import TokenChecker from "@/helpers/tokenChecker";
+import { redirect } from "next/navigation";
 
-import { cookies } from "next/headers";
-
-// export const dynamic = "force-static";
-
+// proxy.ts already redirects every request to this route (to /login or
+// /dash, depending on session validity) before it ever renders - this is
+// just the fallback for the case where it somehow doesn't.
 export default function Home() {
-  // const cookieStore = cookies();
-  // const token = cookieStore.has("JBWtoken");
-  return <TokenChecker location="first" token={false} />;
+  redirect("/login");
 }

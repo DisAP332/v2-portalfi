@@ -8,6 +8,12 @@ interface IResult {
 
 const server = process.env.NEXT_PUBLIC_API_URL;
 
+// the auth token lives in an HttpOnly cookie now - the browser attaches it
+// automatically on same-site/allowed-origin requests, but only if we ask
+// it to via withCredentials. There's nothing to read or attach manually
+// here anymore.
+axios.defaults.withCredentials = true;
+
 // ************* response handling ************* //
 
 function handleResponse(res: AxiosResponse): IResult {
@@ -30,16 +36,9 @@ function handleResponse(res: AxiosResponse): IResult {
 async function Delete(id: string, requested: string) {
   let result: IResult | undefined;
   try {
-    await axios
-      .delete(`${server}/${requested}/${id}`, {
-        headers: {
-          authorization: Storage.getItem("token"),
-          user: Storage.getItem("user"),
-        },
-      })
-      .then((res) => {
-        result = handleResponse(res);
-      });
+    await axios.delete(`${server}/${requested}/${id}`).then((res) => {
+      result = handleResponse(res);
+    });
   } catch (error) {
     console.log(error);
   }
@@ -50,16 +49,7 @@ async function Update(id: string, requested: string, data: object) {
   let result: IResult = { success: false, data: {} };
   try {
     await axios
-      .put(
-        `${server}/${requested}/${id}`,
-        { Data: data },
-        {
-          headers: {
-            authorization: Storage.getItem("token"),
-            user: Storage.getItem("user"),
-          },
-        }
-      )
+      .put(`${server}/${requested}/${id}`, { Data: data })
       .then((res) => {
         result = handleResponse(res);
       });
@@ -78,20 +68,9 @@ async function Update(id: string, requested: string, data: object) {
 async function Create(requested: string, data: object) {
   let result: IResult = { success: false, data: {} };
   try {
-    await axios
-      .post(
-        `${server}/${requested}`,
-        { Data: data },
-        {
-          headers: {
-            authorization: Storage.getItem("token"),
-            user: Storage.getItem("user"),
-          },
-        }
-      )
-      .then((res) => {
-        result = handleResponse(res);
-      });
+    await axios.post(`${server}/${requested}`, { Data: data }).then((res) => {
+      result = handleResponse(res);
+    });
   } catch (error) {
     window.alert(
       `Make sure all required fields contain data / in correct format. ${error}`
@@ -168,32 +147,12 @@ async function sortPublishData(data: {
   const siteDataExists = Storage.getItem("siteData");
   if (!siteDataExists) {
     console.log("creation route");
-    await axios
-      .put(
-        `${server}/site`,
-        { Data },
-        {
-          headers: {
-            authorization: Storage.getItem("token"),
-            user: Storage.getItem("user"),
-          },
-        }
-      )
-      .then((res) => console.log(res));
+    await axios.put(`${server}/site`, { Data }).then((res) => console.log(res));
   } else {
     console.log("update route");
     console.log(siteDataExists[0]._id);
     await axios
-      .put(
-        `${server}/site/${siteDataExists[0]._id}`,
-        { Data },
-        {
-          headers: {
-            authorization: Storage.getItem("token"),
-            user: Storage.getItem("user"),
-          },
-        }
-      )
+      .put(`${server}/site/${siteDataExists[0]._id}`, { Data })
       .then((res) => console.log(res));
   }
 }
