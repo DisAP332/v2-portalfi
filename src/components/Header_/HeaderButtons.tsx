@@ -27,8 +27,10 @@ export function DisplayUser() {
   const [username, setUsername] = useState("");
 
   // use effect is used so our server and client information for username
-  // matches up
+  // matches up: localStorage doesn't exist during SSR, so the value has to
+  // be read after mount, same pattern as contentDataSlice's hydration.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberate SSR/CSR hydration split, not an avoidable effect
     setUsername(Storage.getItem("user"));
   }, []);
 
