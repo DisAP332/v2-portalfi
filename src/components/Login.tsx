@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import Storage from "@/helpers/storage";
+import { dataActions } from "@/redux/slices/contentDataSlice";
 
 import Image from "next/image";
 import CompanyHeader from "../assets/images/Name_Logo.png";
@@ -14,6 +16,8 @@ export default function Login() {
   const [loginInfo, setLoginInfo] = useState(initialState);
 
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   function checkFields() {
     if (loginInfo.username.length < 1 || loginInfo.password.length < 1) {
@@ -36,6 +40,14 @@ export default function Login() {
         if (res.data.success === true) {
           // save all data to local storage
           Storage.setItems(res);
+          // also push it into Redux directly - CartProvider's hydration
+          // effect only runs once, at the very first mount of the app for
+          // this browser session, so it can't pick up a login that happens
+          // afterward in the same session.
+          const { events, food, drinks } = res.data.response;
+          dispatch(dataActions({ requested: "events", data: events }));
+          dispatch(dataActions({ requested: "food", data: food }));
+          dispatch(dataActions({ requested: "drinks", data: drinks }));
           // dump the login info from state
           setLoginInfo(initialState);
           // rerender triggered by state change, token checker will then redirect us to dash.
