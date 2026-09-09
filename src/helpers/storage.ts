@@ -1,60 +1,39 @@
 import { AxiosResponse } from "axios";
 
-function getItem(requested: string) {
-  if (typeof window !== "undefined" && window.localStorage) {
-    let result: any;
-    switch (requested) {
-      case "user":
-        result = localStorage.getItem("JBWuser");
-        result = JSON.parse(result);
-        return result;
-      case "events":
-        result = localStorage.getItem("JBWevents");
-        if (result !== "undefined") {
-          result = JSON.parse(result);
-        }
-        return result;
-      case "food":
-        result = localStorage.getItem("JBWfoodItems");
-        if (result !== "undefined") {
-          result = JSON.parse(result);
-        }
-        return result;
-      case "drinks":
-        result = localStorage.getItem("JBWdrinks");
-        if (result !== "undefined") {
-          result = JSON.parse(result);
-        }
-        return result;
-      case "siteData":
-        result = localStorage.getItem("siteData");
-        result = JSON.parse(result);
-        return result;
-    }
+// "user" and "siteData" are cache slots that aren't content types; every
+// other key (any current or future entry in contentTypes) maps to
+// `JBW<key>` automatically - no edit needed here to add a new content type.
+const SPECIAL_KEYS: Record<string, string> = {
+  user: "JBWuser",
+  siteData: "siteData",
+};
+
+function storageKeyFor(requested: string): string {
+  return SPECIAL_KEYS[requested] ?? `JBW${requested}`;
+}
+
+// localStorage.setItem coerces its value with String(), so writing the JS
+// value `undefined` used to end up stored as the literal string
+// "undefined" - which is truthy, JSON.parse's fine, and used to flow
+// straight into Redux as bogus content-type data.
+function safeParse(raw: string | null) {
+  if (raw == null || raw === "undefined") return undefined;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return undefined;
   }
 }
 
+function getItem(requested: string) {
+  if (typeof window === "undefined" || !window.localStorage) return undefined;
+  return safeParse(localStorage.getItem(storageKeyFor(requested)));
+}
+
 function setItem(requested: string, payload: object) {
-  let payloadStringed = JSON.stringify(payload);
-  if (typeof window !== "undefined" && window.localStorage) {
-    switch (requested) {
-      case "events":
-        localStorage.setItem("JBWevents", payloadStringed);
-        break;
-      case "food":
-        localStorage.setItem("JBWfoodItems", payloadStringed);
-        break;
-      case "drinks":
-        localStorage.setItem("JBWdrinks", payloadStringed);
-        break;
-      case "user":
-        localStorage.setItem("JBWuser", payloadStringed);
-        break;
-      case "siteData":
-        localStorage.setItem("siteData", payloadStringed);
-        break;
-    }
-  }
+  if (payload === undefined) return;
+  if (typeof window === "undefined" || !window.localStorage) return;
+  localStorage.setItem(storageKeyFor(requested), JSON.stringify(payload));
 }
 
 // the auth token is an HttpOnly cookie set directly by the server - it was

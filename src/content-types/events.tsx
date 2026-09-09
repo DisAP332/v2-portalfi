@@ -19,6 +19,7 @@ const eventsConfig: ContentTypeConfig<IEvent> = {
   key: "events",
   label: "Event",
   navLabel: "Events",
+  titleKey: "Name",
   summaryKey: "Description",
   desktopGridColumns: "0.7fr 0.6fr 1fr 0.5fr 2fr 1fr",
   initialValue: {

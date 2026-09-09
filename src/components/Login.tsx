@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import Storage from "@/helpers/storage";
+import { contentTypes } from "@/content-types";
 import { dataActions } from "@/redux/slices/contentDataSlice";
 
 import Image from "next/image";
@@ -49,10 +50,13 @@ export default function Login() {
           // there's nothing to store for it here. Everything else still
           // goes to localStorage for the usual client-side caching.
           Storage.setItems(res);
-          const { events, food, drinks } = res.data.response;
-          dispatch(dataActions({ requested: "events", data: events }));
-          dispatch(dataActions({ requested: "food", data: food }));
-          dispatch(dataActions({ requested: "drinks", data: drinks }));
+          // loops over contentTypes (rather than naming events/food/drinks)
+          // so a new content type is synced automatically on login.
+          contentTypes.forEach((type) => {
+            dispatch(
+              dataActions({ requested: type.key, data: res.data.response[type.key] })
+            );
+          });
           // dump the login info from state
           setLoginInfo(initialState);
           router.push("/dash");

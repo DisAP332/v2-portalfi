@@ -43,12 +43,18 @@ export function LogoutButton() {
   const router = useRouter();
   async function logout() {
     // the token is an HttpOnly cookie now - JS can't clear it directly,
-    // so this has to actually ask the server to.
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/logout`,
-      {},
-      { withCredentials: true }
-    );
+    // so this has to actually ask the server to. Navigate away regardless
+    // of whether that request succeeds - there's nothing more useful to
+    // do client-side than send the user back to login either way.
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/logout`,
+        {},
+        { withCredentials: true }
+      );
+    } catch {
+      // ignore - see above
+    }
     router.push("/login");
   }
 

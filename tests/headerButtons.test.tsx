@@ -35,4 +35,15 @@ describe("LogoutButton", () => {
       { withCredentials: true }
     );
   });
+
+  it("still navigates to /login even when the logout request fails", async () => {
+    mockedAxios.post.mockRejectedValue(new Error("network error"));
+
+    render(<LogoutButton />);
+    fireEvent.click(screen.getByRole("button", { name: /log out/i }));
+
+    // a rejected logout request shouldn't leave the user stranded on the
+    // dashboard with no way back to /login.
+    await waitFor(() => expect(mockPush).toHaveBeenCalledWith("/login"));
+  });
 });

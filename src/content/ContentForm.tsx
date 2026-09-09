@@ -43,7 +43,7 @@ function FormFieldInput<T>({
   data,
   setData,
 }: {
-  field: FormField;
+  field: FormField<T>;
   data: T;
   setData: (data: T) => void;
 }) {
@@ -100,12 +100,23 @@ function FormFieldInput<T>({
           onChange={(e) => setData(setKey(data, field.key, e.target.checked))}
         />
       );
-    case "select":
+    case "select": {
+      const currentValue = get(data, field.key);
+      // a value written outside this form (legacy data, or a future
+      // config that removes an option) wouldn't match any <option> here -
+      // surface it instead of silently swapping the select to a different
+      // value the moment this form renders.
+      const isKnownValue = field.options.some(
+        (option) => option.value === currentValue
+      );
       return (
         <select
-          value={get(data, field.key)}
+          value={currentValue}
           onChange={(e) => setData(setKey(data, field.key, e.target.value))}
         >
+          {!isKnownValue && currentValue ? (
+            <option value={currentValue}>{currentValue} (unrecognized)</option>
+          ) : null}
           {field.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -113,6 +124,7 @@ function FormFieldInput<T>({
           ))}
         </select>
       );
+    }
     case "checkboxGroup":
       return (
         <div className="flex justify-around">
@@ -190,6 +202,11 @@ export default function ContentForm<T extends object>({
   editing,
 }: ContentFormProps<T>) {
   const dispatch = useDispatch();
+  // The caller remounts this component (via a changing `key`) each time
+  // it's opened - see ContentRow/ContentSection - so this initializer
+  // reliably re-reads the current item/blank value on every open, instead
+  // of only once for a form that would otherwise stay mounted (just
+  // CSS-hidden) between opens.
   const [data, setData] = useState<T>(editing?.item ?? config.initialValue);
 
   const handleSubmit = () => {

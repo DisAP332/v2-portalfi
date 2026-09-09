@@ -16,6 +16,7 @@ const foodConfig: ContentTypeConfig<IFood> = {
   key: "food",
   label: "Food",
   navLabel: "Food",
+  titleKey: "Name",
   summaryKey: "Description",
   desktopGridColumns: "0.8fr 1.2fr 0.4fr 0.5fr 0.5fr 0.5fr 1fr 0.5fr 1fr",
   initialValue: {

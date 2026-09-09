@@ -10,7 +10,7 @@ import ContentForm from "./ContentForm";
 
 interface ContentRowProps<T extends object> {
   config: ContentTypeConfig<T>;
-  item: T & { _id: string; Name: string };
+  item: T & { _id: string };
 }
 
 export default function ContentRow<T extends object>({ config, item }: ContentRowProps<T>) {
@@ -19,10 +19,15 @@ export default function ContentRow<T extends object>({ config, item }: ContentRo
     show: false,
     css: { display: "none" },
   });
+  // remounts ContentForm (via its key below) each time Edit opens, so its
+  // state always starts from the current item instead of whatever was
+  // last loaded into a form that stays mounted (just hidden) between opens.
+  const [editOpenCount, setEditOpenCount] = useState(0);
+  const title = String((item as any)[config.titleKey]);
 
   const handleDelete = () => {
     crudActions.Delete(item._id, config.key).then((res) => {
-      if (!res) return;
+      if (!res || !res.success) return;
       dispatch(dataActions({ requested: config.key, data: res.data as object[] }));
     });
   };
@@ -31,7 +36,10 @@ export default function ContentRow<T extends object>({ config, item }: ContentRo
     <div className="text-slate-100 ml-4">
       <button
         className="editBtn bg-slate-400"
-        onClick={() => setShowEdit({ show: true, css: { display: "flex" } })}
+        onClick={() => {
+          setEditOpenCount((count) => count + 1);
+          setShowEdit({ show: true, css: { display: "flex" } });
+        }}
       >
         Edit
       </button>
@@ -44,6 +52,7 @@ export default function ContentRow<T extends object>({ config, item }: ContentRo
   return (
     <>
       <ContentForm
+        key={editOpenCount}
         config={config}
         show={showEdit}
         setShow={setShowEdit}
@@ -65,9 +74,7 @@ export default function ContentRow<T extends object>({ config, item }: ContentRo
       {/* tablet */}
       <div className="hidden md:grid mdGrid lg:hidden" id="card">
         <div>
-          <h1>
-            {item.Name.length < 15 ? item.Name : item.Name.slice(0, 14) + "..."}
-          </h1>
+          <h1>{title.length < 15 ? title : title.slice(0, 14) + "..."}</h1>
         </div>
         <div>{truncated(String((item as any)[config.summaryKey]), 28)}</div>
         {Buttons}
@@ -75,7 +82,7 @@ export default function ContentRow<T extends object>({ config, item }: ContentRo
       {/* mobile */}
       <div className="grid sm:hidden smGrid" id="card">
         <div>
-          <h1>{item.Name}</h1>
+          <h1>{title}</h1>
         </div>
         {Buttons}
       </div>

@@ -25,4 +25,9 @@ jobs:
 
       - run: npm test
 
+      # NEXT_PUBLIC_* vars are inlined into the client bundle at build
+      # time - without one set here, `next build` would silently succeed
+      # with the literal string "undefined" baked in as the API base URL.
       - run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: https://ci-build-placeholder.invalid

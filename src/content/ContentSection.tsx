@@ -17,24 +17,38 @@ export default function ContentSection<T extends object>({ config }: ContentSect
   const toggler = useSelector(
     (state: RootState) => state.sectionToggler[config.key]
   );
-  const items = useSelector(
-    (state: RootState) => state.contentData[config.key]
-  ) as (T & { _id: string; Name: string })[];
+  const rawItems = useSelector((state: RootState) => state.contentData[config.key]);
+  // defense in depth: a failed request (session expired, server rejected)
+  // can leave a non-array (e.g. {}) in this slot - guard here rather than
+  // trust every dispatch upstream to only ever put an array in it.
+  const items = (Array.isArray(rawItems) ? rawItems : []) as (T & {
+    _id: string;
+  })[];
+  const summaryLabel =
+    config.columns.find((column) => column.key === config.summaryKey)?.label ??
+    config.summaryKey;
 
   const [showAdd, setShowAdd] = useState({
     show: false,
     css: { display: "none" },
   });
+  // see ContentRow's editOpenCount - same remount-on-open contract, so
+  // canceling an Add without submitting doesn't leave stale typed values
+  // for the next Add.
+  const [addOpenCount, setAddOpenCount] = useState(0);
 
   const AddButton = (
     <>
       <button
         className="bg-green-700 p-1 rounded-full"
-        onClick={() => setShowAdd({ show: true, css: { display: "flex" } })}
+        onClick={() => {
+          setAddOpenCount((count) => count + 1);
+          setShowAdd({ show: true, css: { display: "flex" } });
+        }}
       >
         <Image src={AddIcon} alt="Add Icon" width={60} />
       </button>
-      <ContentForm config={config} show={showAdd} setShow={setShowAdd} />
+      <ContentForm key={addOpenCount} config={config} show={showAdd} setShow={setShowAdd} />
     </>
   );
 
@@ -69,7 +83,7 @@ export default function ContentSection<T extends object>({ config }: ContentSect
         <div className="shadow-md hidden md:block lg:hidden">
           <div className="sectionHeader mdGrid">
             <h1>Name</h1>
-            <h1>{config.summaryKey}</h1>
+            <h1>{summaryLabel}</h1>
             <h1>Actions</h1>
           </div>
         </div>

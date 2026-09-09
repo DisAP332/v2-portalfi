@@ -14,6 +14,7 @@ const drinksConfig: ContentTypeConfig<IDrink> = {
   key: "drinks",
   label: "Drink",
   navLabel: "Drinks",
+  titleKey: "Name",
   summaryKey: "Description",
   desktopGridColumns: "1fr 0.5fr 1fr 1.6fr 1.6fr 0.5fr 1fr",
   initialValue: {
